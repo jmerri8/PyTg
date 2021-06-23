@@ -1,1 +1,3 @@
-# TgFitting
+# PyTg
+
+PyTg is a set of scripts for performing Bayesian inference on measurements of the glass transition. In particular, intensity / volume vs. temperature plots produced by fluorescence spectroscopy or by ellipsometry. In order to run them, one needs a working installation of Python, PyMC3, and its dependencies. To accomplish this on on Windows, a virtual installation environment is preferred (see https://github.com/pymc-devs/pymc3/wiki/Installation-Guide-(Windows)). Keep in mind, order matters for these steps, so create the virtual environment, then activate THEN install pymc3 by pip, otherwise dependencies will get messed up.
