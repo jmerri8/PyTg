@@ -36,9 +36,14 @@ def import_data(isMultiple, T_max = 120):
             intensity[i] = temp[1]
         return T, intensity
     
+#convert between (float) index of T array and T    
+def T_fit(T, idx):
+    fit = stats.linregress(np.arange(len(T)), T)
+    return fit[0]*idx + fit[1]
+    
 #global variables
-is_fluorescence = True 
-plot_ppc = True
+is_fluorescence = False 
+plot_ppc = False #plot posterior predictive cumulative distribution (y_obs below) after sampling
 
 if is_fluorescence is False:
     dat = np.loadtxt(r"C:\Users\jmerri5\OneDrive - Emory University\Polymer Drive\Jamie Merrill\Bayesian Analysis\example ellipsometry tg.txt", skiprows=1, unpack=True)
@@ -52,18 +57,16 @@ else:
     target_accept = 0.9 #fluorescence data is noisier --> use a slightly higher acceptance target than default 80% (soft tuning param)
     
 figsize(12.5, 10)
-#count_data = np.loadtxt(r"C:\Users\jmerri5\Desktop\txtdata.csv")
 n_count_data = len(count_data)
-plt.scatter(count_data,T, color="#348ABD", marker = "o")
+plt.scatter(T, count_data, color="#348ABD", marker = "o")
 plt.xlabel("Temperature (C)")
 plt.ylabel("Counts")
 plt.xlim(int(min(T)-1), int(max(T)+1));
 plt.figure()
 x = T
-y = count_data   
-data = dict(x=x, y=y)
-
-
+y = count_data
+#convert between array index and continuous temperature with linear fit: T = T_fit(index)
+    
 
 with pm.Model() as model:
     
@@ -99,3 +102,5 @@ with pm.Model() as model:
         data_p = az.from_pymc3(trace, posterior_predictive=pp)
         az.plot_ppc(data_p, 'cumulative', alpha = .5)
 #plot predictive traces by sampling final posteriors
+figsize(12.5, 10)
+plt.hist(T_fit(T, trace['Tg']), bins = 100, density = True)
