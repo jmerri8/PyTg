@@ -23,7 +23,7 @@ import sys
 import os
 
     
-def bayes_fit(fname, draw=4000, tune=2000, T_max = 130, plot_ppc = True, save_data = True, save_summary = True, return_data = True, fit_error = True):
+def bayes_fit(fname, draw=4000, tune=2000, plot_ppc = True, save_data = True, save_summary = True, return_data = True, fit_error = True):
     """
     
 
@@ -115,7 +115,6 @@ def bayes_fit(fname, draw=4000, tune=2000, T_max = 130, plot_ppc = True, save_da
 trace, h, T, h_err = bayes_fit(fname = filedialog.askopenfilename(multiple = False), 
                                draw = 2000, 
                                tune = 2000, 
-                               T_max=140, 
                                save_data = False, 
                                save_summary = False, 
                                plot_ppc = True,
