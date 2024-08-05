@@ -22,7 +22,7 @@ import os
 import arviz.labels as azl
 
  
-def lncosh_bayes_fit(fname, draw=2000, tune=1000, T_max = 130, plot_ppc = True, save_data = True, save_summary = True, return_data = True, fit_error = True):
+def lncosh_bayes_fit(fname, draw=2000, tune=1000, plot_ppc = True, save_data = True, save_summary = True, return_data = True, fit_error = True):
     """
     
 
@@ -110,7 +110,6 @@ def lncosh_bayes_fit(fname, draw=2000, tune=1000, T_max = 130, plot_ppc = True, 
 trace, h, T, h_err = lncosh_bayes_fit(fname = filedialog.askopenfilename(multiple = False), 
                                draw = 2000, 
                                tune = 2000, 
-                               T_max=140, 
                                save_data = False, 
                                save_summary = False, 
                                plot_ppc = True,
