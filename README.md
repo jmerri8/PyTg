@@ -4,7 +4,7 @@ PyTg is a set of scripts for performing Bayesian inference fits on ellipsometric
 
 # Function definitions
 
-## bayes_fit(fname, draw=4000, tune=2000, T_max = 130, plot_ppc = True, save_data = True, save_summary = True, return_data = True, fit_error = True):
+## bayes_fit(fname, draw=4000, tune=2000, plot_ppc = True, save_data = True, save_summary = True, return_data = True, fit_error = True):
 
 This function takes a filename for a dataset to fit, a number of MC samples to draw after the NUTS tuning steps, a number of MC steps to use for tuning NUTS parameters, a boolean variable for whether to plot the posterior predictive distribution, a boolean variable for whether to save the resulting ``InferenceData`` object to a file, a boolean variable for whether to save the resulting text fit summary to a file, a boolean variable for whether to return the data that was fit as a numpy array, and a boolean variable for whether to use the supplied errors to weight the fits, or fit the noise in the data as a parameter in the model. It returns an ArviZ ``InferenceData`` object containing the model, parameters, and all of the MC sampling data. Optionally, it can return the data that was fit (useful for customizing graphs). Example usage is provided in the main script.
 
