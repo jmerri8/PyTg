@@ -4,12 +4,14 @@ PyTg is a set of scripts for performing Bayesian inference fits on ellipsometric
 
 # Function definitions
 
-## bayes_fit(fname, draw=4000, tune=2000, T_max = 130, plot_ppc = True, save_data = True, save_summary = True, return_data = True, fit_error = True)
+## bayes_fit(fname, draw=4000, tune=2000, T_max = 130, plot_ppc = True, save_data = True, save_summary = True, return_data = True, fit_error = True):
+
+This function takes a filename for a dataset to fit, a number of MC samples to draw after the NUTS tuning steps, a number of MC steps to use for tuning NUTS parameters, a boolean variable for whether to plot the posterior predictive distribution, a boolean variable for whether to save the resulting ``InferenceData`` object to a file, a boolean variable for whether to save the resulting text fit summary to a file, a boolean variable for whether to return the data that was fit as a numpy array, and a boolean variable for whether to use the supplied errors to weight the fits, or fit the noise in the data as a parameter in the model. It returns an ArviZ ``InferenceData`` object containing the model, parameters, and all of the MC sampling data. Optionally, it can return the data that was fit (useful for customizing graphs). Example usage is provided in the main script.
 
 ### Parameters  
 
     fname : filename or file handle  
-        Filename for the dataset to fit.       
+        Filename for the dataset to fit. Requirements: 3-column .txt file, with 1 line of header and no footer. Independent variable (x) in the first column, dependent variable in the second column, and error in the dependent variable in the third column.       
     draw : int, optional  
         The number of samples to draw. The default is 2000.  
     tune : int, optional  
@@ -21,7 +23,9 @@ PyTg is a set of scripts for performing Bayesian inference fits on ellipsometric
     save_summary : bool, optional  
         Choose whether to save the text summary of the inference performed. The default is True.  
     return_data : bool, optional  
-        Choose whether to return the raw data that was fit  
+        Choose whether to return the raw data that was fit. The default is True.  
+    fit_error : bool, optional  
+        Choose whether to fit the noise in the data as a parameter, or not. The default is False. WARNING: SETTING TO TRUE WILL MAKE ABSOLUTE VALUES OF FIT PARAMETER ERRORS UNPHYSICAL!  
         
  ### Returns  
  
@@ -32,3 +36,16 @@ PyTg is a set of scripts for performing Bayesian inference fits on ellipsometric
     T : array-like, optional  
         Unscaled temperature array
 
+## extract_values(trace, parameter):  
+
+This function takes an InferenceData object, and the name of a parameter (as a string) in the model inside that inference object to extract as an array. It returns the specified variable, with all sampled values of that parameter, as a numpy array. Example usage is provided in the main script.
+
+### Parameters  
+    trace : InferenceData  
+        The InferenceData object containing the sampled values of interest.  
+    parameter : String  
+        Name of the model parameter inside the InferenceData object to be extracted.  
+
+### Returns  
+    params : Numpy Array  
+        Returns 1D array of all values taken on by the specified parameter during MCMC sampling.
